@@ -18,16 +18,6 @@ module Dummy
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-
-    # Do not swallow errors in after_commit/after_rollback callbacks. This only applies to Rails 4.2
-    # and is deprecated in Rail 5.
-    if ActiveRecord.version == Gem::Version.new('4.2.x')
-      config.active_record.raise_in_transactional_callbacks = true
-    end
-
-    config.after_initialize do
-      require_relative '../db/schema'
-    end
   end
 end
 

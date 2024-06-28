@@ -1,14 +1,16 @@
 require 'rails_helper'
+require 'models'
 
 RSpec.describe 'Migration helpers', type: :model do
   context 'when default attribute names are used' do
     class self::DefaultRandom < ActiveRecord::Base
       stampable
     end
+
     subject { self.class::DefaultRandom.new }
 
     temporary_table(:default_randoms) do |t|
-      t.userstamps(null: false)
+      t.userstamps(**{null: false})
     end
 
     with_temporary_table(:default_randoms) do
@@ -30,22 +32,16 @@ RSpec.describe 'Migration helpers', type: :model do
   end
 
   context 'when overridden attribute names are used' do
-    before(:each) do
+    before(:all) do
       ActiveRecord::Userstamp.configure do |config|
         config.creator_attribute = :created_by
         config.updater_attribute = :updated_by
         config.deleter_attribute = :deleted_by
       end
-      class self.class::OverriddenRandom < ActiveRecord::Base
-        stampable
-      end
     end
-    after(:each) do
-      ActiveRecord::Userstamp.configure do |config|
-        config.creator_attribute = :creator_id
-        config.updater_attribute = :updater_id
-        config.deleter_attribute = :deleter_id
-      end
+
+    class self::OverriddenRandom < ActiveRecord::Base
+      stampable
     end
 
     subject { self.class::OverriddenRandom.new }
@@ -54,7 +50,15 @@ RSpec.describe 'Migration helpers', type: :model do
       t.userstamps
     end
 
-    with_temporary_table(:overridden_randoms, :each) do
+    after(:all) do
+      ActiveRecord::Userstamp.configure do |config|
+        config.creator_attribute = :creator_id
+        config.updater_attribute = :updater_id
+        config.deleter_attribute = :deleter_id
+      end
+    end
+
+    with_temporary_table(:overridden_randoms, :all) do
       it 'has a created_by attribute' do
         expect(subject.has_attribute?(:created_by)).to be true
       end
