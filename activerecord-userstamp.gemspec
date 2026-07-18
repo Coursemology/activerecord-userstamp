@@ -19,9 +19,9 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'rails', '>= 7.0'
+  s.add_dependency 'rails', '>= 7.2'
 
-  s.required_ruby_version = ">= 3.0"
+  s.required_ruby_version = ">= 3.1"
 
   s.add_development_dependency 'tzinfo-data' if RUBY_PLATFORM =~ /mswin|mingw/
   s.add_development_dependency 'rake'
@@ -29,6 +29,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'coveralls_reborn'
   s.add_development_dependency 'codeclimate-test-reporter'
-  s.add_development_dependency 'sqlite3', "~> 1.7"
+  s.add_development_dependency 'sqlite3', ">= 1.7"
   s.add_development_dependency "appraisal", "~> 2.1"
 end
