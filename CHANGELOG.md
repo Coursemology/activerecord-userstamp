@@ -1,5 +1,8 @@
  # Changelog
  
+ ## 3.0.8 (19-7-2026)
+  * Adi Suryanata Herwana  - Support Rails >= 8.0 and Ruby >= 3.4. Drop support for Ruby 3.0, Rails 7.0 and 7.1.
+ 
  ## 3.0.7 (4-9-2024)
   * Adi Suryanata Herwana  - Support Rails >= 7.2 and Ruby >= 3.3.
  
